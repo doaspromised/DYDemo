@@ -3,7 +3,7 @@
 //  Douyin
 //
 //  Created by Abakus on 2021/3/28.
-//  Copyright © 2018年 Abakus. All rights reserved.
+//  Copyright © 2021年 Abakus. All rights reserved.
 //
 
 #import "Comment.h"
