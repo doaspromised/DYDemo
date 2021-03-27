@@ -370,10 +370,10 @@
 			isa = PBXGroup;
 			children = (
 				84E824C9260F951B005EE1BD /* WebPImage.h */,
-				84E824CA260F951B005EE1BD /* WebPImageView.h */,
-				84E824CB260F951B005EE1BD /* WebPQueueManager.h */,
 				84E824CC260F951B005EE1BD /* WebPImage.m */,
+				84E824CA260F951B005EE1BD /* WebPImageView.h */,
 				84E824CD260F951B005EE1BD /* WebPImageView.m */,
+				84E824CB260F951B005EE1BD /* WebPQueueManager.h */,
 				84E824CE260F951B005EE1BD /* WebPQueueManager.m */,
 			);
 			path = WebP;

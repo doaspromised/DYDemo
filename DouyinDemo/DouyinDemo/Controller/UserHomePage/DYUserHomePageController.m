@@ -49,12 +49,12 @@ UserInfoDelegate
     if (self) {
         _uid = @"97795069353";
         
-//        _workAwemes = [[NSMutableArray alloc]init];
-//        _favoriteAwemes = [[NSMutableArray alloc]init];
-//        _pageIndex = 0;
-//        _pageSize = 18;
-//
-//        _tabIndex = 0;
+        _workAwemes = [[NSMutableArray alloc]init];
+        _favoriteAwemes = [[NSMutableArray alloc]init];
+        _pageIndex = 0;
+        _pageSize = 18;
+
+        _tabIndex = 0;
 //
 //        _scalePresentAnimation = [ScalePresentAnimation new];
 //        _scaleDismissAnimation = [ScaleDismissAnimation new];
@@ -134,6 +134,7 @@ UserInfoDelegate
             
             [UIView setAnimationsEnabled:NO];
             [wself.collectionView performBatchUpdates:^{
+                
                 [wself.favoriteAwemes addObjectsFromArray:array];
                 NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
                 for(NSInteger row = wself.favoriteAwemes.count - array.count; row<wself.favoriteAwemes.count; row++) {
@@ -210,9 +211,9 @@ UserInfoDelegate
     return 2;
 }
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (section == 1) {
-        return 50;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if(section == 1) {
+        return _tabIndex == 0 ? _workAwemes.count : _favoriteAwemes.count;
     }
     return 0;
 }
@@ -234,13 +235,13 @@ UserInfoDelegate
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DYAwemeCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kAwemeCollectionCell forIndexPath:indexPath];
-//    Aweme *aweme;
-//    if(_tabIndex == 0) {
-//        aweme = [_workAwemes objectAtIndex:indexPath.row];
-//    }else {
-//        aweme = [_favoriteAwemes objectAtIndex:indexPath.row];
-//    }
-//    [cell initData:aweme];
+    Aweme *aweme;
+    if(_tabIndex == 0) {
+        aweme = [_workAwemes objectAtIndex:indexPath.row];
+    }else {
+        aweme = [_favoriteAwemes objectAtIndex:indexPath.row];
+    }
+    [cell initData:aweme];
     return cell;
 }
 
@@ -266,26 +267,33 @@ UserInfoDelegate
     if(_tabIndex == index){
         return;
     }
+    
     _tabIndex = index;
+    if (_tabIndex == 0 && _workAwemes.count > 0) {
+        return;
+    }
+    if (_tabIndex == 1 && _favoriteAwemes.count > 0) {
+        return;;
+    }
+    
     _pageIndex = 0;
     
     [UIView setAnimationsEnabled:NO];
     [self.collectionView performBatchUpdates:^{
         [self.workAwemes removeAllObjects];
         [self.favoriteAwemes removeAllObjects];
-        
+
         if([self.collectionView numberOfItemsInSection:1]) {
             [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
         }
     } completion:^(BOOL finished) {
         [UIView setAnimationsEnabled:YES];
-        
+
 //        [self.loadMore reset];
 //        [self.loadMore startLoading];
-        
+
         [self loadData:self.pageIndex pageSize:self.pageSize];
     }];
-    
 }
 
 

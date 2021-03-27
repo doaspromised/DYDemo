@@ -6,10 +6,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WebPImageView;
+@class Aweme;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DYAwemeCollectionCell : UICollectionViewCell
+
+@property (nonatomic, strong) WebPImageView    *imageView;
+@property (nonatomic, strong) UIButton         *favoriteNum;
+
+- (void)initData:(Aweme *)aweme;
 
 @end
 

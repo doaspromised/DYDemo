@@ -83,6 +83,25 @@ NSString *const FindComentByPagePath = @"comment/list";
 }
 
 +(NSURLSessionDataTask *)getWithUrlPath:(NSString *)urlPath request:(BaseRequest *)request success:(HttpSuccess)success failure:(HttpFailure)failure {
+    
+    //当服务器无法响应时，使用本地json数据
+    NSString *path = urlPath;
+    if ([path containsString:FindUserByUidPath]) {
+        success([NSString readJson2DicWithFileName:@"user"]);
+    }else if ([path containsString:FindAwemePostByPagePath]) {
+        success([NSString readJson2DicWithFileName:@"awemes"]);
+    }else if ([path containsString:FindAwemeFavoriteByPagePath]) {
+        success([NSString readJson2DicWithFileName:@"favorites"]);
+    }else if ([path containsString:FindComentByPagePath]) {
+        success([NSString readJson2DicWithFileName:@"comments"]);
+    }else if ([path containsString:FindGroupChatByPagePath]) {
+        success([NSString readJson2DicWithFileName:@"groupchats"]);
+    }else {
+//        failure(error);
+    }
+    
+    return [NSURLSessionDataTask new];
+    
     NSDictionary *parameters = [request toDictionary];
     return [[NetworkHelper sharedManager] GET:[BaseUrl stringByAppendingString:urlPath] parameters:parameters progress:^(NSProgress *downloadProgress) {
     } success:^(NSURLSessionDataTask *task, id responseObject) {
