@@ -25,6 +25,10 @@
 extern "C" {
 #endif
 
+#ifdef WEBP_EXPERIMENTAL_FEATURES
+#include "src/enc/delta_palettization_enc.h"
+#endif  // WEBP_EXPERIMENTAL_FEATURES
+
 //------------------------------------------------------------------------------
 // Decoding
 
@@ -163,7 +167,7 @@ extern VP8LCostCombinedFunc VP8LExtraCostCombined;
 extern VP8LCombinedShannonEntropyFunc VP8LCombinedShannonEntropy;
 
 typedef struct {        // small struct to hold counters
-  int counts[2];        // index: 0=zero streak, 1=non-zero streak
+  int counts[2];        // index: 0=zero steak, 1=non-zero streak
   int streaks[2][2];    // [zero/non-zero][streak<3 / streak>=3]
 } VP8LStreaks;
 
@@ -194,14 +198,10 @@ extern VP8LGetEntropyUnrefinedFunc VP8LGetEntropyUnrefined;
 void VP8LBitsEntropyUnrefined(const uint32_t* const array, int n,
                               VP8LBitEntropy* const entropy);
 
-typedef void (*VP8LAddVectorFunc)(const uint32_t* a, const uint32_t* b,
-                                  uint32_t* out, int size);
-extern VP8LAddVectorFunc VP8LAddVector;
-typedef void (*VP8LAddVectorEqFunc)(const uint32_t* a, uint32_t* out, int size);
-extern VP8LAddVectorEqFunc VP8LAddVectorEq;
-void VP8LHistogramAdd(const VP8LHistogram* const a,
-                      const VP8LHistogram* const b,
-                      VP8LHistogram* const out);
+typedef void (*VP8LHistogramAddFunc)(const VP8LHistogram* const a,
+                                     const VP8LHistogram* const b,
+                                     VP8LHistogram* const out);
+extern VP8LHistogramAddFunc VP8LHistogramAdd;
 
 // -----------------------------------------------------------------------------
 // PrefixEncode()
