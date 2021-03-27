@@ -2,8 +2,8 @@
 //  SlideTabBar.m
 //  Douyin
 //
-//  Created by Qiao Shi on 2018/10/22.
-//  Copyright © 2018 Qiao Shi. All rights reserved.
+//  Created by Abakus on 2021/10/22.
+//  Copyright © 2018 Abakus. All rights reserved.
 //
 
 #import "SlideTabBar.h"

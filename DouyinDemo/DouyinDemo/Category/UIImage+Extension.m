@@ -2,8 +2,8 @@
 //  UIImage+Extension.m
 //  Douyin
 //
-//  Created by Qiao Shi on 2018/7/30.
-//  Copyright © 2018年 Qiao Shi. All rights reserved.
+//  Created by Abakus on 2021/3/28.
+//  Copyright © 2018年 Abakus. All rights reserved.
 //
 
 #import "UIImage+Extension.h"
